@@ -10,13 +10,13 @@ defaults:
 
 jobs:
   package:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
       - name: Set up Python 3.7
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: "3.7"
       - name: Check packages
@@ -30,19 +30,19 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["2.7", "3.6", "3.7", "3.8", "3.9", "3.10"]
-        os: [macos-11, windows-latest, ubuntu-latest]
+        os: [macos-11, windows-2022, ubuntu-22.04]
         experimental: [false]
         nox-session: ['']
         exclude:
           # GitHub Actions dropped support for Python 2.7 and 3.7 in Ubuntu 22.04
           - python-version: "2.7"
-            os: ubuntu-latest
+            os: ubuntu-22.04
           - python-version: "3.6"
-            os: ubuntu-latest
+            os: ubuntu-22.04
           # Python 3.7 does not fully support OpenSSL 3, the default on Ubuntu 22.04
           # https://bugs.python.org/issue38820
           - python-version: "3.7"
-            os: ubuntu-latest
+            os: ubuntu-22.04
         include:
           - python-version: "2.7"
             os: ubuntu-20.04
@@ -57,7 +57,7 @@ jobs:
             experimental: false
             nox-session: ''
           - python-version: "pypy3.9"
-            os: ubuntu-latest
+            os: ubuntu-22.04
             experimental: false
             nox-session: test-pypy
           - python-version: "pypy2.7"
@@ -65,37 +65,37 @@ jobs:
             experimental: false
             nox-session: test-pypy
           - python-version: "2.7"
-            os: ubuntu-latest
+            os: ubuntu-22.04
             experimental: false
             nox-session: google_brotli-2.7
           - python-version: "3.x"
-            os: ubuntu-latest
+            os: ubuntu-22.04
             experimental: false
             nox-session: google_brotli-3
           - python-version: "2.7"
-            os: ubuntu-latest
+            os: ubuntu-22.04
             experimental: false
             nox-session: app_engine
-          - python-version: 3.11-dev
-            os: ubuntu-latest
+          - python-version: 3.11
+            os: ubuntu-22.04
             experimental: true
             nox-session: test-3.11
 
     runs-on: ${{ matrix.os }}
-    name: ${{ fromJson('{"macos-11":"macOS","windows-latest":"Windows","ubuntu-20.04":"Ubuntu 20.04","ubuntu-latest":"Ubuntu"}')[matrix.os] }} ${{ matrix.python-version }} ${{ matrix.nox-session}}
+    name: ${{ fromJson('{"macos-11":"macOS","windows-2022":"Windows","ubuntu-20.04":"Ubuntu 20.04","ubuntu-22.04":"Ubuntu"}')[matrix.os] }} ${{ matrix.python-version }} ${{ matrix.nox-session}}
     continue-on-error: ${{ matrix.experimental }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Set Up Python - ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Set Up Python 3 to run nox
         if: matrix.python-version == '2.7' || matrix.python-version == 'pypy2.7'
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: "3"
 
@@ -123,12 +123,12 @@ jobs:
 
 
   coverage:
-    runs-on: "ubuntu-latest"
+    runs-on: "ubuntu-22.04"
     needs: test
     steps:
       - uses: actions/checkout@v2
       - name: "Use latest Python so it understands all syntax"
-        uses: actions/setup-python@v4
+        uses: MatteoH2O1999/setup-python@v4
         with:
           python-version: "3.10"
 

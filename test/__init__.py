@@ -52,7 +52,7 @@ INVALID_SOURCE_ADDRESSES = [("192.0.2.255", 0), ("2001:db8::1", 0)]
 SHORT_TIMEOUT = 0.001
 LONG_TIMEOUT = 0.01
 if os.environ.get("CI") or os.environ.get("GITHUB_ACTIONS") == "true":
-    LONG_TIMEOUT = 0.5
+    LONG_TIMEOUT = 1
 
 
 def _can_resolve(host):

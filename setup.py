@@ -40,7 +40,7 @@ setup(
     name="urllib3",
     version=version,
     description="HTTP library with thread-safe connection pooling, file post, and more.",
-    long_description=u"\n\n".join([readme, changes]),
+    long_description="\n\n".join([readme, changes]),
     long_description_content_type="text/x-rst",
     classifiers=[
         "Environment :: Web Environment",
@@ -85,9 +85,9 @@ setup(
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*",
     extras_require={
         "brotli": [
-            "brotli>=1.0.9; (os_name != 'nt' or python_version >= '3') and platform_python_implementation == 'CPython'",
-            "brotlicffi>=0.8.0; (os_name != 'nt' or python_version >= '3') and platform_python_implementation != 'CPython'",
-            "brotlipy>=0.6.0; os_name == 'nt' and python_version < '3'",
+            "brotli==1.0.9; (os_name != 'nt' or python_version >= '3') and platform_python_implementation == 'CPython'",
+            "brotlicffi==0.8.0; (os_name != 'nt' or python_version >= '3') and platform_python_implementation != 'CPython'",
+            "brotlipy==0.6.0; os_name == 'nt' and python_version < '3'",
         ],
         "secure": [
             "pyOpenSSL>=0.14",

@@ -16,8 +16,8 @@ SOURCE_FILES = [
 
 def tests_impl(session, extras="socks,secure,brotli"):
     # Install deps and the package itself.
-    session.install("-r", "dev-requirements.txt")
     session.install(".[{extras}]".format(extras=extras))
+    session.install("-r", "dev-requirements.txt")
 
     # Show the pip version.
     session.run("pip", "--version")
@@ -55,7 +55,7 @@ def google_brotli(session):
     # https://pypi.org/project/Brotli/ is the Google version of brotli, so
     # install it separately and don't install our brotli extra (which installs
     # brotlipy).
-    session.install("brotli")
+    session.install("brotli==1.0.9")
     tests_impl(session, extras="socks,secure")
 
 
